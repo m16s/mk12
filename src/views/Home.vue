@@ -1,12 +1,23 @@
 <template>
   <div class="home">
-    <img src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="stats">Stats</div>
+    <div class="actions">
+      <router-link to="/plus">
+        <button>+</button>
+      </router-link>
+      <router-link to="/minus">
+        <button>-</button>
+      </router-link>
+    </div>
+    <div class="footer">
+      <router-link to="/history">
+        <button>History</button>
+      </router-link>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {

@@ -3,7 +3,9 @@
     What good have you done?
     <input v-model.trim="description">
 
-    <button>BACK</button>
+    <router-link to="/">
+      <button>BACK</button>
+    </router-link>
     <button @click="addPlus()">ADD PLUS</button>
   </div>
 </template>
@@ -22,6 +24,8 @@ export default {
         type: ADD_PLUS_ACTION,
         description: this.description,
       })
+
+      this.$router.push('/')
     }
   },
 }

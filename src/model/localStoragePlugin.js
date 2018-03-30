@@ -1,13 +1,13 @@
 import * as localforage from 'localforage'
-import { ADD_RECORDS_MUTATION } from '../store'
+import { ADD_POST_MUTATION } from '../store'
 
 const STORE_KEY = 'state'
 const load = () => localforage
   .getItem(STORE_KEY)
-  .catch(err => console.error('Load local records error', err))
+  .catch(err => console.error('Load local posts error', err))
 const save = data => localforage
   .setItem(STORE_KEY, data)
-  .catch(err => console.error('Save local records error', err))
+  .catch(err => console.error('Save local posts error', err))
 
 localforage.config({
   name: 'mk12',
@@ -31,11 +31,11 @@ const localStoragePlugin = ({autoLoadMutation}) => store => {
   // The mutation comes in the format of `{ type, payload }`.
   store.subscribe((mutation, state) => {
     switch(mutation.type) {
-      case ADD_RECORDS_MUTATION: {
-        const records = state.records.map(rec => rec.toString())
+      case ADD_POST_MUTATION: {
+        const posts = state.posts.map(post => post.toString())
         const stateClone = {
           ...state,
-          records,
+          posts,
         }
         // const serializedState = JSON.stringify(stateClone)
         const serializedState = stateClone

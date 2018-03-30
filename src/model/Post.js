@@ -1,16 +1,16 @@
-import {toBase70, fromBase70} from 'base70'
+import { toBase70, fromBase70 } from 'base70'
 
 export const dateToMinutes = date => Math.floor(date.getTime() / (1000 * 60))
 export const minutesToDate = minutes => new Date(minutes * 1000 * 60)
 
-export default class Record {
+export default class Post {
   constructor({value, date, description} = {}) {
     this.value = value || 0
     this.date = date || minutesToDate(dateToMinutes(new Date())) // rounded
     this.description = description || ''
   }
 
-  static isRecord({value, date, description} = {}) {
+  static isPost({value, date, description} = {}) {
     return value !== undefined && date !== undefined && description !== undefined
   }
 
@@ -27,7 +27,7 @@ export default class Record {
       this.description = parts.slice(2).join('-')
       return this
     } catch(err) {
-      console.error('Record parsing error', value)
+      console.error('Post parsing error', value)
       console.error(err)
       throw err
     }

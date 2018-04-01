@@ -1,7 +1,11 @@
 <template>
   <div>
     What good have you done?
-    <input v-model.trim="description" autofocus>
+    <input 
+      v-model.trim="description"
+      @keyup.enter="addPlus()" 
+      autofocus
+    >
 
     <router-link to="/">
       <button>BACK</button>

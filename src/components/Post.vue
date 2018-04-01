@@ -1,6 +1,6 @@
 <template>
   <p>
-    <span>{{post.date}}</span>
+    <span>{{post.date | date}}</span> - 
     <span>{{post.description}}</span>
   </p>
 </template>

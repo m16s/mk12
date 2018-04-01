@@ -14,6 +14,21 @@ export default class Post {
     return value !== undefined && date !== undefined && description !== undefined
   }
 
+  serialize() {
+    return {
+      value: this.value,
+      date: this.date.getTime(),
+      description: this.description,
+    }
+  }
+
+  deserialize(raw) {
+    this.date = new Date(raw.date)
+    this.value = raw.value
+    this.description = raw.description
+    return this
+  }
+
   toString() {
     const minutes = dateToMinutes(this.date)
     return `${toBase70(minutes)}-${this.value}-${this.description}`
@@ -31,5 +46,13 @@ export default class Post {
       console.error(err)
       throw err
     }
+  }
+
+  equals(post) {
+    return (
+      this.date.getTime() === post.date.getTime()
+      && this.value === post.value
+      && this.description === post.description
+    )
   }
 }

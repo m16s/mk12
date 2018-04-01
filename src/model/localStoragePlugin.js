@@ -1,5 +1,6 @@
 import * as localforage from 'localforage'
 import { ADD_POST_MUTATION } from '../store'
+import Post from './Post';
 
 const STORE_KEY = 'state'
 const load = () => localforage
@@ -20,7 +21,10 @@ const localStoragePlugin = ({autoLoadMutation}) => store => {
     // initial loading
     load()
       .then(value => {
-        const state = value
+        const state = {
+          ...value,
+          posts: value.posts.map(raw => new Post().deserialize(raw)),
+        }
         store.commit({
           type: autoLoadMutation,
           state,
@@ -32,13 +36,11 @@ const localStoragePlugin = ({autoLoadMutation}) => store => {
   store.subscribe((mutation, state) => {
     switch(mutation.type) {
       case ADD_POST_MUTATION: {
-        const posts = state.posts.map(post => post.toString())
-        const stateClone = {
+        const posts = state.posts.map(post => post.serialize())
+        const serializedState = {
           ...state,
           posts,
         }
-        // const serializedState = JSON.stringify(stateClone)
-        const serializedState = stateClone
         save(serializedState)
       }
     }

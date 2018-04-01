@@ -21,9 +21,11 @@ const localStoragePlugin = ({autoLoadMutation}) => store => {
     // initial loading
     load()
       .then(value => {
+        if (!value) return
+
         const state = {
           ...value,
-          posts: value.posts.map(raw => new Post().deserialize(raw)),
+          posts: value.posts.map(raw => new Post(raw)),
         }
         store.commit({
           type: autoLoadMutation,
